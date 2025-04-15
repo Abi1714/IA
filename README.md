@@ -3,35 +3,32 @@ Dada una matriz de 9x9 y suponiendo que los valores de la misma es la solución 
 
 
 
-def es_valido(lista):
-    return sorted(lista) == list(range(1, 10))
-
-def validar_sudoku(matriz):
-    # Validar filas
+def es_valida(matriz):
+    # Verificar filas
     for fila in matriz:
-        if not es_valido(fila):
+        if sorted(fila) != list(range(1, 10)):
             return False
 
-    # Validar columnas
+    # Verificar columnas
     for col in range(9):
         columna = [matriz[fila][col] for fila in range(9)]
-        if not es_valido(columna):
+        if sorted(columna) != list(range(1, 10)):
             return False
 
-    # Validar subcuadros 3x3
-    for fila in range(0, 9, 3):
-        for col in range(0, 9, 3):
+    # Verificar subcuadros 3x3
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
             subcuadro = []
-            for i in range(3):
-                for j in range(3):
-                    subcuadro.append(matriz[fila + i][col + j])
-            if not es_valido(subcuadro):
+            for k in range(3):
+                for l in range(3):
+                    subcuadro.append(matriz[i + k][j + l])
+            if sorted(subcuadro) != list(range(1, 10)):
                 return False
 
     return True
 
-# Ejemplo de uso
-sudoku = [
+Ejemplo de uso
+solucion = [
     [5,3,4,6,7,8,9,1,2],
     [6,7,2,1,9,5,3,4,8],
     [1,9,8,3,4,2,5,6,7],
@@ -43,7 +40,7 @@ sudoku = [
     [3,4,5,2,8,6,1,7,9]
 ]
 
-if validar_sudoku(sudoku):
+if es_valida(solucion):
     print("La solución es válida.")
 else:
     print("La solución es incorrecta.")
